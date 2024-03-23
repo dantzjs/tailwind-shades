@@ -1,4 +1,4 @@
-const shadesOf = require('.');
+import { shadesOf } from "./index.js";
 
 Object.entries({
     red: () => shadesOf('#ff0000')[50] === '#ffe6e6',
