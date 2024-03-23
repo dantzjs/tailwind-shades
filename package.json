@@ -4,13 +4,18 @@
   "type": "module",
   "name": "tw-shades",
   "version": "1.2.0",
-  "description": "Automatically generate shades for Tailwindcss",
-  "main": "main.js",
+  "description": "Automatically generate and apply shades for Tailwindcss",
+  "main": "./dist/tw-shades.js",
+  "types": "./dist/main.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "prepare": "husky",
+    "test": "vitest run",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "cz": "npx cz",
@@ -45,7 +50,8 @@
     "prettier": "3.2.5",
     "typescript": "^5.4.3",
     "vite": "^5.2.4",
-    "vite-plugin-dts": "^3.7.3"
+    "vite-plugin-dts": "^3.7.3",
+    "vitest": "^1.4.0"
   },
   "config": {
     "commitizen": {

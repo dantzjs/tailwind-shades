@@ -2,7 +2,10 @@ type RGB = [r: number, g: number, b: number];
 type RGBIndex = 0 | 1 | 2;
 type ColorConfig = { percentage: number; startColor: RGB; endColor: RGB };
 
-export type Hex = `#${string}`;
+export type Hex = string | `#${string}`;
+
+const isBrowser = typeof window !== 'undefined';
+const root = isBrowser ? document : null;
 
 export type ShadesConfig = {
    format?: 'hex' | 'rgb';
@@ -84,8 +87,10 @@ export const shadesOf = (hex: Hex, config?: ShadesConfig) => {
 };
 
 export const applyShades = (shades: Shades, name: string, config?: { prefix: string }): void => {
+   if (!root) return;
+   const target = root.documentElement;
    const prefix = config?.prefix || 'color';
    for (let [shade, color] of Object.entries(shades)) {
-      document.documentElement.style.setProperty(`--${prefix}-${name}-${shade}`, color);
+      target.style.setProperty(`--${prefix}-${name}-${shade}`, color);
    }
 };
