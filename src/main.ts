@@ -1,6 +1,6 @@
 type RGB = [r: number, g: number, b: number];
 type RGBIndex = 0 | 1 | 2;
-type ColorConfig = { percentage: number, startColor: RGB, endColor: RGB };
+type ColorConfig = { percentage: number; startColor: RGB; endColor: RGB };
 
 export type Hex = `#${string}`;
 
@@ -45,7 +45,7 @@ function getColor(
    return '#' + rgb.map((channel) => channel.toString(16).padStart(2, '0')).join('');
 }
 
-export const shadesOf = (hex: Hex, _config?: ShadesConfig) => {
+export const shadesOf = (hex: Hex, config?: ShadesConfig) => {
    const baseColor = hexToRgb(hex);
    const black: RGB = [0, 0, 0];
    const white: RGB = [255, 255, 255];
@@ -56,7 +56,7 @@ export const shadesOf = (hex: Hex, _config?: ShadesConfig) => {
       format: 'hex',
       halfShades: false,
       separator: ' ',
-      ..._config,
+      ...config,
    };
 
    if (halfShades) shades = [...shades, 150, 250, 350, 450, 550, 650, 750, 850].sort();
@@ -81,4 +81,11 @@ export const shadesOf = (hex: Hex, _config?: ShadesConfig) => {
    }
 
    return result;
+};
+
+export const applyShades = (shades: Shades, name: string, config?: { prefix: string }): void => {
+   const prefix = config?.prefix || 'color';
+   for (let [shade, color] of Object.entries(shades)) {
+      document.documentElement.style.setProperty(`--${prefix}-${name}-${shade}`, color);
+   }
 };
