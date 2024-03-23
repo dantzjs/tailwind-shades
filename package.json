@@ -3,7 +3,7 @@
   "license": "MIT",
   "type": "module",
   "name": "tw-shades",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Automatically generate shades for Tailwindcss",
   "main": "main.js",
   "scripts": {
