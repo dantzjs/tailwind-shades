@@ -94,5 +94,3 @@ export const applyShades = (shades: Shades, name: string, config?: { prefix: str
       target.style.setProperty(`--${prefix}-${name}-${shade}`, color);
    }
 };
-
-console.log(shadesOf('#913985', { format: 'rgb', separator: true}))
