@@ -3,7 +3,7 @@
   "license": "MIT",
   "type": "module",
   "name": "tw-shades",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Automatically generate and apply shades for Tailwindcss",
   "main": "./dist/tw-shades.js",
   "types": "./dist/main.d.ts",
