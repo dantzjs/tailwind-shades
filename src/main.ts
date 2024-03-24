@@ -4,23 +4,23 @@ type ColorConfig = { percentage: number; startColor: RGB; endColor: RGB };
 
 export type Hex = string | `#${string}`;
 
-const isBrowser = typeof window !== 'undefined';
-const root = isBrowser ? document : null;
-
 export type ShadesConfig = {
    format?: 'hex' | 'rgb';
    halfShades?: boolean;
-   separator?: ' ' | ',';
+   separator?: boolean;
 };
 
 export type Shades = {
    [key: number]: string;
 };
 
+const isBrowser = typeof window !== 'undefined';
+const root = isBrowser ? document : null;
+
 function hexToRgb(_hex: Hex): RGB {
    const hex = _hex.replace('#', '');
 
-   const color = hex.length === 3 ? hex.replace(/(.)/g, '$1$1') : hex;
+   const color = hex.length === 3 ? hex + hex : hex;
 
    const r = color.substring(0, 2);
    const g = color.substring(2, 4);
@@ -43,7 +43,7 @@ function getColor(
       const index = _index as RGBIndex;
       return Math.round(channel + percentage * (startColor[index] - channel));
    });
-   if (format === 'rgb') return rgb.join(separator);
+   if (format === 'rgb') return rgb.join(separator ? ',' : ' ');
 
    return '#' + rgb.map((channel) => channel.toString(16).padStart(2, '0')).join('');
 }
@@ -58,7 +58,7 @@ export const shadesOf = (hex: Hex, config?: ShadesConfig) => {
    const { format, halfShades, separator }: ShadesConfig = {
       format: 'hex',
       halfShades: false,
-      separator: ' ',
+      separator: false,
       ...config,
    };
 
@@ -94,3 +94,5 @@ export const applyShades = (shades: Shades, name: string, config?: { prefix: str
       target.style.setProperty(`--${prefix}-${name}-${shade}`, color);
    }
 };
+
+console.log(shadesOf('#913985', { format: 'rgb', separator: true}))
